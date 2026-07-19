@@ -20,6 +20,11 @@ git clone https://github.com/artfat-creator/ComfyUI-Artfat-FaceConsistency
 
 Restart ComfyUI — the nodes appear under the **`artfat`** category.
 
+> **If the nodes don't show up** — or a saved workflow loads them looking broken /
+> with missing widgets — fully **restart ComfyUI** once more. If it persists,
+> right-click the node → **Fix node (recreate)**, or just delete it and re-add it
+> from the `artfat` menu. (This is normal after a node's inputs change.)
+
 **Dependencies:** `opencv-python` + `numpy` (both ship with ComfyUI). The detector
 models (`yunet.onnx`, `sface.onnx`) are **bundled** in `models/` — nothing extra to
 download, and the default **YuNet** detector works out of the box.
@@ -88,11 +93,12 @@ Drag either file from `example_workflows/` onto the ComfyUI canvas, then repoint
 the placeholder paths (`your_model.safetensors`, `your_persona_lora.safetensors`,
 `C:/path/to/...`, `reference_face.png`) at your own model / LoRA / folders.
 
-- **`face_consistency_generate.json`** — standard txt2img **with a persona LoRA**
-  → the Sort node gates each generation against a reference face (the intended
-  live use: generate → auto-pass/fail).
-- **`face_consistency_example.json`** — score an existing **folder** (Batch
-  contact sheet) plus an inline Sort on a single loaded image.
+- **`face_consistency_generate.json`** — txt2img **with a persona LoRA**
+  (split UNET + CLIP + VAE loaders, e.g. Krea2/Flux) → the **Sort** node gates
+  each generation against a reference face (the intended live use: generate →
+  auto-pass/fail).
+- **`face_consistency_batch.json`** — minimal **Batch** curation: a reference
+  image + a folder → a labelled contact sheet.
 
 ## Notes
 - Near-zero cosine (`< 0.1`) usually means SFace failed to embed that crop
