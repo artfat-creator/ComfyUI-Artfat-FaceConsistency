@@ -9,6 +9,23 @@ script):
 
 ![Batch curation — folder scored against a reference, laid out as a labelled contact sheet](screenshots/batch-contact-sheet.png)
 
+## Installation
+
+Clone into your ComfyUI `custom_nodes` folder and restart:
+
+```bash
+cd ComfyUI/custom_nodes
+git clone https://github.com/artfat-creator/ComfyUI-Artfat-FaceConsistency
+```
+
+Restart ComfyUI — the nodes appear under the **`artfat`** category.
+
+**Dependencies:** `opencv-python` + `numpy` (both ship with ComfyUI). The detector
+models (`yunet.onnx`, `sface.onnx`) are **bundled** in `models/` — nothing extra to
+download. The *optional* YOLO detector needs `ultralytics` (already present in most
+ComfyUI installs; otherwise `pip install ultralytics`) and a face `.pt` model such as
+`face_yolov8m.pt` placed in `ComfyUI/models/ultralytics/bbox`.
+
 ## Artfat Face Consistency (Sort) — inline gate
 Score each generated frame against a reference identity and sort it to disk.
 
