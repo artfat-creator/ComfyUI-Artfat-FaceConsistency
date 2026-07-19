@@ -1,0 +1,8 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.DS_Store
+.vscode/
+.idea/
+# ship the pack's own detectors (yunet/sface), but never other people's big weights
+models/*.pt

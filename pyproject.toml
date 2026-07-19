@@ -1,0 +1,14 @@
+[project]
+name = "comfyui-artfat-faceconsistency"
+version = "0.1.0"
+description = "Face-identity consistency scoring for ComfyUI (cv2 YuNet+SFace, CPU). Inline pass/fail sort + batch contact-sheet."
+license = { text = "MIT" }
+requires-python = ">=3.10"
+dependencies = ["opencv-python", "numpy"]
+
+[project.urls]
+Repository = "https://github.com/artfat-creator/ComfyUI-Artfat-FaceConsistency"
+
+[tool.comfy]
+DisplayName = "Artfat Face Consistency"
+PublisherId = "artfat-creator"
