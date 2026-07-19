@@ -33,6 +33,21 @@ sheet, a CSV, and (optionally) keep/reject copies.
 and averaged into one centroid**. More references = a steadier anchor — a
 dataset centroid beats a single frame, which beats a self-medoid.
 
+## Detector: YuNet vs YOLO
+Both nodes expose a `detector` choice plus capture settings:
+
+- **YuNet (fast, CPU)** — default, pure cv2, zero VRAM. Excellent on portraits /
+  upper-body. Can score low on a *small* face in a busy full-body shot.
+- **YOLO (robust, full-body)** — finds the face even when small/angled, crops it
+  with padding, then re-aligns with YuNet so SFace gets a big clean face. Uses a
+  `.pt` face model (auto-discovered from `models/ultralytics/bbox`,
+  `models/upscale_models`, etc.). Requires `ultralytics` (ships with most ComfyUI
+  installs; `pip install ultralytics` otherwise).
+
+Capture settings (apply to YOLO): `detect_conf` (lower = catches harder/smaller
+faces), `crop_padding` (context around the face before scoring), `min_face_frac`
+(ignore faces smaller than this fraction of the frame — skips background people).
+
 ## Notes
 - Near-zero cosine (`< 0.1`) usually means SFace failed to embed that crop
   (a detector glitch), **not** a real identity mismatch — the Batch mean drops
