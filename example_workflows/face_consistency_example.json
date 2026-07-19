@@ -1,0 +1,129 @@
+{
+  "id": "b1e2c3d4-0000-4a00-9000-artfatface01",
+  "revision": 0,
+  "last_node_id": 5,
+  "last_link_id": 3,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "ArtfatFaceConsistencyBatch",
+      "pos": [80, 80],
+      "size": [400, 320],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {"name": "reference_image", "type": "IMAGE", "link": null, "shape": 7}
+      ],
+      "outputs": [
+        {"name": "contact_sheet", "type": "IMAGE", "links": [1], "slot_index": 0},
+        {"name": "csv_path", "type": "STRING", "links": null},
+        {"name": "mean_score", "type": "FLOAT", "links": null},
+        {"name": "report", "type": "STRING", "links": null}
+      ],
+      "properties": {"Node name for S&R": "ArtfatFaceConsistencyBatch"},
+      "widgets_values": [
+        "C:/path/to/generated_images",
+        0.5,
+        0.28,
+        "C:/path/to/reference_faces",
+        false,
+        6,
+        "YuNet (fast, CPU)",
+        "face_yolov8m.pt",
+        0.5,
+        0.3,
+        0.0
+      ]
+    },
+    {
+      "id": 2,
+      "type": "PreviewImage",
+      "pos": [540, 80],
+      "size": [520, 520],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [{"name": "images", "type": "IMAGE", "link": 1}],
+      "outputs": [],
+      "properties": {"Node name for S&R": "PreviewImage"},
+      "widgets_values": []
+    },
+    {
+      "id": 3,
+      "type": "LoadImage",
+      "pos": [80, 440],
+      "size": [400, 340],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {"name": "IMAGE", "type": "IMAGE", "links": [2], "slot_index": 0},
+        {"name": "MASK", "type": "MASK", "links": null}
+      ],
+      "properties": {"Node name for S&R": "LoadImage"},
+      "widgets_values": ["example.png", "image"]
+    },
+    {
+      "id": 4,
+      "type": "ArtfatFaceConsistencySort",
+      "pos": [540, 640],
+      "size": [420, 380],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {"name": "image", "type": "IMAGE", "link": 2},
+        {"name": "reference_image", "type": "IMAGE", "link": null, "shape": 7}
+      ],
+      "outputs": [
+        {"name": "image", "type": "IMAGE", "links": null, "slot_index": 0},
+        {"name": "similarity", "type": "FLOAT", "links": null},
+        {"name": "passed", "type": "BOOLEAN", "links": null},
+        {"name": "verdict", "type": "STRING", "links": null},
+        {"name": "annotated", "type": "IMAGE", "links": [3], "slot_index": 4}
+      ],
+      "properties": {"Node name for S&R": "ArtfatFaceConsistencySort"},
+      "widgets_values": [
+        0.5,
+        "C:/path/to/pass",
+        "C:/path/to/fail",
+        "C:/path/to/reference_faces",
+        "persona",
+        "",
+        true,
+        "YuNet (fast, CPU)",
+        "face_yolov8m.pt",
+        0.5,
+        0.3,
+        0.0
+      ]
+    },
+    {
+      "id": 5,
+      "type": "PreviewImage",
+      "pos": [1020, 640],
+      "size": [400, 400],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [{"name": "images", "type": "IMAGE", "link": 3}],
+      "outputs": [],
+      "properties": {"Node name for S&R": "PreviewImage"},
+      "widgets_values": []
+    }
+  ],
+  "links": [
+    [1, 1, 0, 2, 0, "IMAGE"],
+    [2, 3, 0, 4, 0, "IMAGE"],
+    [3, 4, 4, 5, 0, "IMAGE"]
+  ],
+  "groups": [
+    {"title": "Batch  (folder -> contact sheet)", "bounding": [60, 20, 1010, 600], "color": "#3f789e", "font_size": 24, "flags": {}},
+    {"title": "Sort  (image -> pass/fail)", "bounding": [60, 580, 1380, 470], "color": "#3f9e6b", "font_size": 24, "flags": {}}
+  ],
+  "config": {},
+  "extra": {"ds": {"scale": 0.7, "offset": [40, 20]}},
+  "version": 0.4
+}

@@ -61,6 +61,17 @@ faces), `crop_padding` (context around the face before scoring), `min_face_frac`
 |---|---|
 | ![Sort controls](screenshots/sort-node.png) | ![Batch controls](screenshots/batch-node.png) |
 
+## Example workflows
+Drag either file from `example_workflows/` onto the ComfyUI canvas, then repoint
+the placeholder paths (`your_model.safetensors`, `your_persona_lora.safetensors`,
+`C:/path/to/...`, `reference_face.png`) at your own model / LoRA / folders.
+
+- **`face_consistency_generate.json`** — standard txt2img **with a persona LoRA**
+  → the Sort node gates each generation against a reference face (the intended
+  live use: generate → auto-pass/fail).
+- **`face_consistency_example.json`** — score an existing **folder** (Batch
+  contact sheet) plus an inline Sort on a single loaded image.
+
 ## Notes
 - Near-zero cosine (`< 0.1`) usually means SFace failed to embed that crop
   (a detector glitch), **not** a real identity mismatch — the Batch mean drops
