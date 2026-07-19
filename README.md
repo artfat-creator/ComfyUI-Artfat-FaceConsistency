@@ -22,9 +22,14 @@ Restart ComfyUI — the nodes appear under the **`artfat`** category.
 
 **Dependencies:** `opencv-python` + `numpy` (both ship with ComfyUI). The detector
 models (`yunet.onnx`, `sface.onnx`) are **bundled** in `models/` — nothing extra to
-download. The *optional* YOLO detector needs `ultralytics` (already present in most
-ComfyUI installs; otherwise `pip install ultralytics`) and a face `.pt` model such as
-`face_yolov8m.pt` placed in `ComfyUI/models/ultralytics/bbox`.
+download, and the default **YuNet** detector works out of the box.
+
+**Optional YOLO detector** (more robust on full-body / small faces) needs:
+1. `ultralytics` — already present in most ComfyUI installs; otherwise `pip install ultralytics`.
+2. A face `.pt` model. Download e.g. **`face_yolov8m.pt`** from
+   [Bingsu/adetailer on Hugging Face](https://huggingface.co/Bingsu/adetailer/tree/main)
+   and place it in **`ComfyUI/models/ultralytics/bbox/`**. *(If you already use
+   ComfyUI-Impact-Pack / ADetailer, you very likely have these models already.)*
 
 ## Artfat Face Consistency (Sort) — inline gate
 Score each generated frame against a reference identity and sort it to disk.
