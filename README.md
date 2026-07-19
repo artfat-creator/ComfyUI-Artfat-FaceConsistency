@@ -7,8 +7,17 @@ so it runs happily alongside the sampler.
 Two nodes, one shared scoring core (identical to the `face_consistency_sort.py`
 script):
 
+![Batch curation — folder scored against a reference, laid out as a labelled contact sheet](screenshots/batch-contact-sheet.png)
+
 ## Artfat Face Consistency (Sort) — inline gate
 Score each generated frame against a reference identity and sort it to disk.
+
+![Sort node inline — KSampler → decode → Sort → pass/fail](screenshots/sort-inline.png)
+
+It **discriminates**, it doesn't just pass everything — the same reference,
+three frames, one rejected:
+
+![pass / pass / fail badges](screenshots/discrimination.png)
 
 - **Inputs:** `image`, `min_similarity` (cosine pass threshold), `pass_dir`,
   `fail_dir`; optional `reference_image` (IMAGE batch 1..N), `reference_folder`,
@@ -47,6 +56,10 @@ Both nodes expose a `detector` choice plus capture settings:
 Capture settings (apply to YOLO): `detect_conf` (lower = catches harder/smaller
 faces), `crop_padding` (context around the face before scoring), `min_face_frac`
 (ignore faces smaller than this fraction of the frame — skips background people).
+
+| Sort node | Batch node |
+|---|---|
+| ![Sort controls](screenshots/sort-node.png) | ![Batch controls](screenshots/batch-node.png) |
 
 ## Notes
 - Near-zero cosine (`< 0.1`) usually means SFace failed to embed that crop
